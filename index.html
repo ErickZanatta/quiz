@@ -6,21 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>quiz</title>
     <link rel="stylesheet" href="UniQuiz.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 
 <body>
     <div id="iniciarjogo">
-        <button id="botaojogar" class="main-btn" onclick="btnIniciarJogo()">Iniciar</button>
+        <button id="botaojogar" class="main-btn" data-aos="flip-up" data-aos-duration="800" >Iniciar</button>
     </div>
 
-    <div id="caixaquiz" class="tela-container">
+    <div id="caixaquiz" class="tela-container" >
         <h2 id="perguntadoquiz" class="questaoUniQuiz"></h2>
         <div class="opcoesRespostas" id="opcoesRespostas"></div>
 
-        <button class="botaoProximo" id="btnproximo" onclick="proximapergunta()">Proxima questão</button>
+        <button class="botaoProximo" id="btnproximo">Proxima questão</button>
     </div>
+
+    <div class="tela-container" id="placar">
+        <h1 id="resultadoplacar"></h1>
+    </div>  
+
+
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+      </script>
     <script src="quiz.js"></script>
 
 </body>
-
 </html>

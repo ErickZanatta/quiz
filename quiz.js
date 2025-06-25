@@ -1,14 +1,21 @@
 const divbtniniciar = document.getElementById("iniciarjogo")
 const divcaixaquiz = document.getElementById("caixaquiz")
 const h2perguntadoquiz = document.getElementById("perguntadoquiz")
+const btniniciar = document.getElementById("botaojogar")
+const btnproxima = document.getElementById("btnproximo")
+const placar = document.getElementById("resultadoplacar")
+
+btniniciar.addEventListener("click",btnIniciarJogo)
+btnproxima.addEventListener("click",proximapergunta)
 
 
 let indicepergutas = 0
+let respostaCorretas = 0
 
 //---------------------------------------------------------------arrays-----------------------------------------------------------
 const perguntas = [{
         perguntas: "Qual é o maior deserto do mundo?",
-        opcoes: ["Saara", "Antartica", "Itacoatiara",],respostacorreta:"Antartica"
+        opcoes: ["Saara", "Antartida", "Itacoatiara",],respostacorreta:"Antartida"
     },
 
     {
@@ -18,7 +25,7 @@ const perguntas = [{
 
     {
         perguntas: "Qual é a capital da Austrália?",
-        opcoes: ["camberra", "Sidney", "Rio grande do sul"],respostacorreta:"camberra"
+        opcoes: ["Camberra", "Sidney", "Rio grande do sul"],respostacorreta:"Camberra"
     },
 
     {
@@ -66,16 +73,27 @@ function abrirtelajogo() {
 }
 
 function validarrepostacorreta(opcoselecionada) {
-    const btnresposta = opcoesRespostas.querySelector("answer-btn")
-
-    if(perguntas[indicepergutas].respostacorreta == opcoselecionada){
-        btnresposta.forEach (opcao => {
-            if(botao.textContent == opcoselecionada){
-                btnpergunta.classList.add("answer-btn.correct")
+    const btnresposta = opcoesRespostas.querySelectorAll(".answer-btn")
+        btnresposta.forEach (botao => {
+            // mudando a cor para verde
+            if(botao.textContent === perguntas[indicepergutas].respostacorreta){
+                botao.classList.add("correct")
             }
+            //mudando a cor para vermelho
+            if(botao.textContent === opcoselecionada && opcoselecionada != perguntas[indicepergutas].respostacorreta){
+                botao.classList.add("incorrect")
+            }
+            botao.disabled = true
         })
+
+        if(opcoselecionada === perguntas[indicepergutas].respostacorreta){
+            respostaCorretas++
+        }
     }
-}
+    function resultado(){
+        const resultadoPlacar = document.getElementById("resultaoplacar")
+        resultadoPlacar.textContent = "Você acertou " + respostaCorretas
+    }
 
 
 function proximapergunta() {
@@ -84,7 +102,9 @@ function proximapergunta() {
         abrirtelajogo()
 
     } else {
-        alert("sem mais perguntas...")
+        divcaixaquiz.classList.remove("active")
+        resultado()
+
     }
 
 }
